@@ -23,6 +23,10 @@ $form = new LoginForm('','get');
 
        <?=$form->render()?>
 
+    <form>
+        <input>
+        <button></button>
+    </form>
 
 
 
