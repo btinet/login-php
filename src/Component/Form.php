@@ -2,7 +2,7 @@
 
 namespace App\Component;
 
-class Form
+class Form implements WebComponentInterface
 {
 
     private String $action;
@@ -12,21 +12,47 @@ class Form
     private array $inputFields;
     private array $buttons;
 
-
-
     /**
+     * @param array $inputFields
+     * @param array $buttons
      * @param String $action
      * @param String $method
      */
-    public function __construct(string $action, string $method)
+    public function __construct(array $inputFields, array $buttons = [new Button('submit')] ,string $action = '', string $method = 'post')
     {
         $this->action = $action;
         $this->method = $method;
+
+        // Eingabefelder zur Liste hinzufügen
+        foreach ($inputFields as $inputField) {
+            if ($inputField instanceof Input) $this->inputFields[] = $inputField;
+        }
+
+        // Buttons zur Liste hinzufügen
+        foreach ($buttons as $button) {
+            if ($button instanceof Button) $this->buttons[] = $button;
+        }
+
     }
 
     public function render() : string
     {
-        return '<form method="'.$this->getMethod().'"><label>Username<input type="text" required></label><button type="submit">Absenden</button></form>';
+        $output = '<form method="'.$this->getMethod().'" id="'.$this->getId().'">';
+
+        foreach ($this->inputFields as $inputField) {
+            /** @var $inputField Input  */
+            $output .= '<label for="'.$inputField->getId().'">'.$inputField->getLabel().'</label>'.PHP_EOL;
+            $output .= '<input id="'.$inputField->getId().'" name="'.$inputField->getId().'" type="'.$inputField->getType()->name.'">'.PHP_EOL;
+        }
+
+        foreach ($this->buttons as $button) {
+            /** @var $button Button  */
+            $output .= '<button id="'.$button->getId().'" name="'.$button->getId().'" type="'.$button->getType()->name.'">'.$button->getType()->value.'</button>'.PHP_EOL;
+        }
+
+        $output .= '</form>';
+
+        return $output;
     }
 
 
@@ -52,7 +78,7 @@ class Form
 
     public function getId(): string
     {
-        return $this->id;
+        return $this->id ?? '';
     }
 
     public function setId(string $id): void

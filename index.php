@@ -7,7 +7,7 @@ use App\Component\LoginForm;
 require ('autoload.php');
 
 
-$form = new LoginForm('','get');
+$form = new LoginForm();
 
 ?>
 
@@ -20,15 +20,6 @@ $form = new LoginForm('','get');
         <title>Titel der Website</title>
     </head>
     <body>
-
-       <?=$form->render()?>
-
-    <form>
-        <input>
-        <button></button>
-    </form>
-
-
-
+    <?=$form->render()?>
     </body>
 </html>
