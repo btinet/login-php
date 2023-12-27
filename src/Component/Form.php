@@ -47,7 +47,7 @@ class Form implements WebComponentInterface
 
         foreach ($this->buttons as $button) {
             /** @var $button Button  */
-            $output .= '<button id="'.$button->getId().'" name="'.$button->getId().'" type="'.$button->getType()->name.'">'.$button->getType()->value.'</button>'.PHP_EOL;
+            $output .= '<button id="'.$button->getId().'" name="'.$button->getId().'" value="'.$button->getType()->name.'" type="'.$button->getType()->name.'">'.$button->getType()->value.'</button>'.PHP_EOL;
         }
 
         $output .= '</form>';
