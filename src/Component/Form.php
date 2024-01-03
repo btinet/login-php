@@ -41,13 +41,12 @@ class Form implements WebComponentInterface
 
         foreach ($this->inputFields as $inputField) {
             /** @var $inputField Input  */
-            $output .= '<label for="'.$inputField->getId().'">'.$inputField->getLabel().'</label>'.PHP_EOL;
-            $output .= '<input id="'.$inputField->getId().'" name="'.$inputField->getId().'" type="'.$inputField->getType()->name.'">'.PHP_EOL;
+            $output .= $inputField->render();
         }
 
         foreach ($this->buttons as $button) {
             /** @var $button Button  */
-            $output .= '<button id="'.$button->getId().'" name="'.$button->getId().'" value="'.$button->getType()->name.'" type="'.$button->getType()->name.'">'.$button->getType()->value.'</button>'.PHP_EOL;
+            $output .= '<button id="'.$button->getId().'" name="'.$button->getId().'" class="btn btn-primary" value="'.$button->getType()->name.'" type="'.$button->getType()->name.'">'.$button->getType()->value.'</button>'.PHP_EOL;
         }
 
         $output .= '</form>';

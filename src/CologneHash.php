@@ -2,6 +2,9 @@
 
 namespace App;
 
+use PDO;
+use PDOStatement;
+
 class CologneHash
 {
 
@@ -12,6 +15,19 @@ class CologneHash
     static $codingTable = array("a" => 0, "e" => 0, "i" => 0, "j" => 0, "o" => 0, "u" => 0, "y" => 0,
         "b" => 1, "p" => 1, "d" => 2, "t" => 2, "f" => 3, "v" => 3, "w" => 3, "c" => 4, "g" => 4, "k" => 4, "q" => 4,
         "x" => 48, "l" => 5, "m" => 6, "n" => 6, "r" => 7, "s" => 8, "z" => 8);
+
+    public static function compare($word, PDO $pdo)
+    {
+        $sqlQuery = 'select baseform from word_mapping';
+        $query = $pdo->query($sqlQuery);
+
+        foreach ($query as $entry) {
+            if(self::getCologneHash($word) == self::getCologneHash($entry['baseform'])) {
+                return $entry['baseform'];
+            }
+        }
+        return 'Es reimt sich kein Wort auf ' . $word;
+    }
 
     public static function getCologneHash($word): bool|string
     {

@@ -48,7 +48,7 @@ class Input implements WebComponentInterface
     public function render(): string
     {
         $output = '<label for="' . $this->getId() . '">' . $this->getLabel() . '</label>' . PHP_EOL;
-        $output .= '<input id="'.$this->getId().'" name="'.$this->getId().'" type="'.$this->getType()->name.'">'.PHP_EOL;
+        $output .= '<input id="'.$this->getId().'" placeholder="'.$this->getLabel().'" class="input" name="'.$this->getId().'" type="'.$this->getType()->name.'">'.PHP_EOL;
         return $output;
     }
 }
