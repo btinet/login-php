@@ -12,13 +12,14 @@ function customAutoloader( $class )
     $file = ROOT_DIRECTORY . 'src' .  $classPath.  '.php';
 
     try {
-        require_once $file;
+        @require_once $file;
     } catch (Error $exception) {
         $origin = $exception->getTrace();
         $origin = array_shift($origin);
 
         echo sprintf("<p style='font-weight: bold'>Fehler in Zeile %s der Datei %s aufgetreten:</p>",$origin['line'],$origin['file']);
         echo sprintf("<p>Die Datei %s mit der Klasse %s wurde nicht gefunden! Überprüfe den Namespace und das use-Statement.</p>",$file,$class);
+        exit(0);
     }
 
 }
