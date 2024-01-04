@@ -17,6 +17,7 @@ if($_POST) {
     $results = $db->select(['word','normalized_word','normalized_word2'],'term','word LIKE "%'.$_POST['usr'].'%"');
 }
 
+$test = new App\TestClass();
 
 
 $form = new LoginForm();
